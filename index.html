@@ -154,6 +154,7 @@ ul{margin:0;padding-left:1.2em}
 .iconbtn{width:34px;height:34px;border:2px solid var(--ink);border-radius:50%;background:#fff;cursor:pointer;display:grid;place-items:center;font-size:.9rem}
 .tab .cnt{display:inline-block;min-width:18px;padding:0 5px;border-radius:999px;background:var(--ink);color:#fff;font-size:.7rem;line-height:18px;text-align:center;margin-left:2px}
 
+
 /* guides */
 .gblock{border:var(--line);border-radius:var(--r-lg);padding:12px 14px;margin-bottom:10px;background:#fff}
 .gblock h4{font-size:1rem;margin-bottom:6px;display:flex;align-items:center;gap:6px}
@@ -190,6 +191,21 @@ ul{margin:0;padding-left:1.2em}
 .two{display:grid;grid-template-columns:1fr 1fr;gap:10px}
 @media (max-width:420px){.two{grid-template-columns:1fr}}
 .tiny{font-size:.78rem;color:var(--muted)}
+/* budget */
+.bsum{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-bottom:10px}
+.bsum>div{border:var(--line);border-radius:var(--r-lg);padding:8px 10px;background:#fff}
+.bsum small{display:block;color:var(--muted);font-size:.74rem}
+.bsum b{font-size:1.05rem}
+.bsum .tot{grid-column:1/-1;background:var(--wakatake-soft)}
+.bsum .tot b{font-size:1.4rem}
+.exp{display:flex;gap:10px;justify-content:space-between;align-items:flex-start}
+.exp .amt{text-align:right;white-space:nowrap;font-weight:800}
+.exp .amt small{display:block;color:var(--muted);font-weight:500;font-size:.74rem}
+.exp .meta{font-size:.8rem;color:var(--muted);margin-top:2px}
+.badge.paid{background:var(--wakatake)} .badge.booked{background:var(--yamabuki)} .badge.est{background:#fff}
+.catbar{display:flex;gap:6px;flex-wrap:wrap;margin:6px 0 10px;font-size:.8rem}
+.catbar span{border:2px solid var(--ink);border-radius:999px;padding:1px 9px;background:#fff}
+
 footer{margin-top:30px;text-align:center;font-size:.8rem;color:var(--muted)}
 .leaf-float{position:fixed;pointer-events:none;z-index:1;opacity:.75}
 
@@ -268,6 +284,7 @@ html.rm .leaf-float{display:none}
     <a href="#flights">航班</a>
     <a href="#days">每日行程</a>
     <a href="#shopping">購物</a>
+    <a href="#budget">記帳</a>
     <a href="#guides">攻略</a>
     <a href="#jp">日文小記</a>
     <a href="#hotels">住宿</a>
@@ -392,6 +409,12 @@ html.rm .leaf-float{display:none}
   <div id="shoppanels"></div>
 </section>
 
+<!-- BUDGET -->
+<section id="budget" class="section">
+  <div class="section-head"><div><div class="kicker">BUDGET</div><h2 class="c-green">記帳</h2></div></div>
+  <div id="budgetbox"></div>
+</section>
+
 <!-- GUIDES -->
 <section id="guides" class="section">
   <div class="section-head"><div><div class="kicker">TIPS</div><h2>攻略提醒</h2></div></div>
@@ -424,7 +447,7 @@ html.rm .leaf-float{display:none}
 <section id="pack" class="section">
   <div class="section-head"><div><div class="kicker">PACKING</div><h2 class="c-green">行李清單</h2></div></div>
   <div class="card soft-green"><h3 style="margin-bottom:6px">隨身（巴士上要帶）</h3><ul class="todo" data-list="pack-carry"></ul></div>
-  <div class="card"><h3 style="margin-bottom:6px">大行李（11/22 從名古屋寄到金澤）</h3><ul class="todo" data-list="pack-big"></ul></div>
+  <div class="card"><h3 style="margin-bottom:6px">大行李（11/23 早上從名古屋寄到金澤）</h3><ul class="todo" data-list="pack-big"></ul></div>
   <div class="card soft-yellow"><h3 style="margin-bottom:6px">高山一晚小包</h3><ul class="todo" data-list="pack-small"></ul></div>
 </section>
 
@@ -507,7 +530,7 @@ html.rm .leaf-float{display:none}
 
   {"id":"h01","tab":"hotel","ja":"チェックインお願いします。予約名はリンです","ro":"chek-ku-in o-ne-ga-i shi-ma-su. yo-ya-ku-mei wa rin de-su","zh":"麻煩辦理入住，訂房名是林","tip":"同時給護照與訂房畫面"},
   {"id":"h02","tab":"hotel","ja":"チェックインまで荷物を預かってもらえますか？","ro":"chek-ku-in ma-de ni-mo-tsu o a-zu-kat-te mo-ra-e-ma-su ka","zh":"入住前可以寄放行李嗎？","tip":"11/21 VIA INN、11/23 高山、11/24 金澤都會用到"},
-  {"id":"h03","tab":"hotel","ja":"この荷物を金沢のホテルに送りたいです","ro":"ko-no ni-mo-tsu o ka-na-za-wa no ho-te-ru ni o-ku-ri-ta-i de-su","zh":"我想把這件行李寄到金澤的飯店","tip":"11/22 在 VIA INN 櫃台，附上 Tokyu Stay 地址"},
+  {"id":"h03","tab":"hotel","ja":"この荷物を金沢のホテルに送りたいです","ro":"ko-no ni-mo-tsu o ka-na-za-wa no ho-te-ru ni o-ku-ri-ta-i de-su","zh":"我想把這件行李寄到金澤的飯店","tip":"11/23 早上在 VIA INN 櫃台，附上 Tokyu Stay 地址"},
   {"id":"h04","tab":"hotel","ja":"宅急便の伝票をください","ro":"tak-kyuu-bin no den-pyou o ku-da-sa-i","zh":"請給我宅急便的單子","tip":"黑貓宅急便＝ヤマト"},
   {"id":"h05","tab":"hotel","ja":"荷物は届いていますか？","ro":"ni-mo-tsu wa to-do-i-te i-ma-su ka","zh":"行李送到了嗎？","tip":"11/24 到 Tokyu Stay 先問"},
   {"id":"h06","tab":"hotel","ja":"チェックアウトは何時ですか？","ro":"chek-ku-a-u-to wa nan-ji de-su ka","zh":"退房是幾點？","tip":"高山 10:00 前"},
@@ -538,32 +561,38 @@ const MAP = q => 'https://www.google.com/maps/search/?api=1&query=' + encodeURIC
 
 const DAYS = [
  {n:1,d:'11/21',w:'六',city:'名古屋',title:'抵達名古屋・名站商圈購物',stay:'VIA INN 名古屋站太閤通口',cost:'約 ¥8,000–10,000',icon:'plane',
-  note:['事先在名鐵網路預約買 μ-SKY QR 乘車券（2 人）','核對票價：乘車券 ¥890 或 ¥980 ＋ μ-ticket ¥450','填 Visit Japan Web'],
+  note:['事先在 Klook／KKday 買乘車券 QR（2 人各一張、各用自己手機）','落地後用名鐵「無票服務」買 μ-ticket ¥450（每人合計 ¥1,340）','填 Visit Japan Web','UNIQLO：名古屋 Gate Tower 店（10:00–21:00）、Esca 地下街店（10:00–20:30），都在名站旁，可順路逛'],
   eat:[['山本屋總本家 名鐵百貨店','味噌煮込みうどん','https://retty.me/restaurant/100000063351/'],['名站手羽先／名古屋飯','地圖搜尋',MAP('名古屋駅 手羽先')]],
   items:[
    {t:'12:25',tag:'plane',title:'抵達中部國際機場 T2',meta:'入境、領行李約 40–60 分',note:'T2 → T1 Access Plaza 有免費接駁巴士，也可走連絡通道'},
    {t:'約13:40',tag:'train',title:'名鐵 μ-SKY → 名鐵名古屋',meta:'約 28–35 分｜全車指定席，有大型行李置物區',note:'到站坐 4 號車廂離中央／西改札口較近',map:'Meitetsu Nagoya Station'},
    {t:'約14:30',tag:'foot',title:'VIA INN 寄放行李',meta:'名鐵名古屋 → JR 太閤通口步行 5–10 分｜15:00 可入住',map:'VIA INN Nagoya Station Taikodori'},
-   {t:'15:00–18:00',tag:'shop',title:'名站商圈購物',meta:'JR 名古屋高島屋、JR Gate Tower、名站地下街（Esca、Unimall）',must:false,map:'JR Nagoya Takashimaya'},
+   {t:'15:00–18:00',tag:'shop',title:'名站商圈購物',meta:'JR 名古屋高島屋、JR Gate Tower（內有 UNIQLO）、名站地下街（Esca 也有 UNIQLO、Unimall）',must:false,map:'JR Nagoya Takashimaya'},
    {t:'18:30',tag:'food',title:'晚餐｜名站',meta:'山本屋總本家（名鐵百貨）味噌煮込みうどん，或手羽先',map:'山本屋総本家 名鉄百貨店'}
   ]},
- {n:2,d:'11/22',w:'日',city:'名古屋',title:'大須散策・榮購物・鳥開晚餐',stay:'VIA INN 名古屋站太閤通口',cost:'約 ¥8,000–10,000（購物另計）',icon:'torii',
-  note:['出門前到櫃台寄大行李到 Tokyu Stay Kanazawa（先量尺寸）','確認鳥開總本家是否可訂位','Graphpaper 週三公休，今天週日 OK'],
-  eat:[['矢場とん 矢場町本店','味噌豬排','https://www.nagoya-info.jp/gourmet/detail/24/'],['鳥開總本家 栄ラシック店','名古屋交趾雞親子丼、手羽先','https://www.nagoya-info.jp/gourmet/detail/115/']],
+ {n:2,d:'11/22',w:'日',city:'名古屋',title:'名古屋城・大須散策・榮購物・鳥開晚餐',stay:'VIA INN 名古屋站太閤通口',cost:'約 ¥10,000–12,000（含名古屋城門票；購物另計）',icon:'torii',
+  note:['早起吃早餐，08:30 前出發去名古屋城（約 20 分）；店家營業時間出發前再查','早餐備案（離飯店約 5 分內）：飯店館內免費早餐、喫茶リッチ、ボン・ヴォヤージュ，見「建議餐廳」','名古屋城門票 ¥1,000／人（2026/10/1 起，舊資料 ¥500 已過時），天守閣整修不能進，本丸御殿最終入場 16:00','確認鳥開總本家是否可訂位（建議訂 19:30–20:00）','榮的 UNIQLO（5F）＋GU（6F）在同一棟「榮 Skyle」，10:00–20:00，逛榮時一起逛；退稅帶護照','在名古屋買的東西放進大行李，晚上整理封好；小包裝 11/23 高山一晚＋11/24 白天用品','Graphpaper 週三公休，今天週日 OK'],
+  eat:[['早餐備案｜VIA INN 館內免費早餐','飯店最近；第三方資料寫 06:30 起，房價是否含早餐先確認',MAP('ヴィアイン名古屋新幹線口')],['早餐備案｜喫茶リッチ（エスカ地下街）','太閤通口步行約 2 分，07:00 開、早餐到 10:00；飯店到站約 4 分',MAP('喫茶リッチ エスカ')],['早餐備案｜喫茶 ボン・ヴォヤージュ','名古屋駅中央通り，07:00 開，點飲料附吐司、水煮蛋',MAP('喫茶 ボン・ヴォヤージュ 名古屋駅')],['早餐｜喫茶モーニング','站西古民家，名古屋駅徒歩約 9 分，約 08:00 起、週二休',MAP('喫茶モーニング 名古屋')],['早餐｜BUCYO COFFEE','名駅南，名古屋駅徒歩約 12 分、離 VIA INN 約 15–20 分，07:15 開、無休，常排隊',MAP('BUCYO COFFEE 名古屋')],['早餐｜コンパル 大須本店','大須觀音旁老字號喫茶，營業時間要先查',MAP('コンパル 大須本店')],['早餐｜ハヤシコーヒー イルフィオレ','大須觀音駅步行約 3 分，吐司早餐',MAP('ハヤシコーヒー イルフィオレ 大須')],['矢場とん 矢場町本店','味噌豬排','https://www.nagoya-info.jp/gourmet/detail/24/'],['鳥開總本家 栄ラシック店','名古屋交趾雞親子丼、手羽先','https://www.nagoya-info.jp/gourmet/detail/115/']],
   items:[
-   {t:'09:00',tag:'hotel',title:'寄出大行李',meta:'VIA INN 櫃台辦宅急便 → 11/24 Tokyu Stay 收｜黑貓 ¥2,630–3,020／佐川 ¥2,180–2,440 一件'},
-   {t:'10:00',tag:'metro',title:'大須觀音',meta:'名站經伏見轉鶴舞線約 15–20 分，¥210–240｜停留 30–45 分',must:true,map:'Osu Kannon Nagoya'},
-   {t:'10:45',tag:'foot',title:'大須商店街',meta:'古著、雜貨、小吃｜約 2 小時',note:'午餐：矢場とん 矢場町本店（味噌豬排）就在大須',map:'Osu Shopping District Nagoya'},
-   {t:'12:30–14:30',tag:'shop',title:'Graphpaper Nagoya',meta:'中區大須 2-6-15｜12:00–19:00，週三公休｜1F 書店咖啡、2F 服飾與 FRAMA',must:true,map:'Graphpaper Nagoya'},
-   {t:'14:30',tag:'foot',title:'步行到榮（約 15–25 分）',meta:'沿途經久屋大通'},
-   {t:'15:00–18:00',tag:'shop',title:'榮購物',meta:'LACHIC、三越、PARCO、久屋大通公園 RAYARD',map:'LACHIC Nagoya'},
-   {t:'18:00',tag:'spot',title:'Oasis 21 水之宇宙船',meta:'看夜景 30–60 分，免費',map:'Oasis 21 Nagoya'},
-   {t:'18:45',tag:'food',title:'晚餐｜鳥開總本家 栄ラシック店',meta:'LACHIC 7F｜11:00–22:00（L.O. 21:00）｜假日可能要排',must:true,map:'Torikai Sohonke Sakae Lachic'}
+   {t:'07:30',tag:'food',title:'早餐｜名古屋モーニング',meta:'點飲料就附吐司（小倉吐司、水煮蛋）｜約 1 小時｜喫茶モーニング在站西；BUCYO COFFEE 在站東南側，要走 15–20 分',note:'08:30 前吃完；店家營業時間出發前再查',map:'喫茶モーニング 名古屋'},
+   {t:'08:30',tag:'metro',title:'前往名古屋城（約 20 分）',meta:'地下鐵名城線到名古屋城駅，約 20 分、¥240，再步行 5–7 分；或 Meguru 巴士名古屋駅直達（08:30、09:00 發）',note:'出發前確認路線與班次'},
+   {t:'09:00–11:30',tag:'spot',title:'名古屋城・本丸御殿',meta:'門票 ¥1,000／人｜09:00 開園、本丸御殿最終入場 16:00｜天守閣整修不能進',note:'早到避開三連休人潮',must:true,map:'Nagoya Castle'},
+   {t:'11:30',tag:'food',title:'午餐｜金シャチ橫丁',meta:'城內外的名古屋飯餐飲區｜約 1–1.5 小時',map:'Kin no Shachi Yokocho Nagoya'},
+   {t:'13:15',tag:'metro',title:'前往大須（約 15 分）',meta:'名古屋城駅搭名城線到上前津，步行至大須觀音，¥210–240（粗估）'},
+   {t:'13:30',tag:'spot',title:'大須觀音',meta:'停留 30 分',must:true,map:'Osu Kannon Nagoya'},
+   {t:'13:55',tag:'foot',title:'大須商店街',meta:'古著、雜貨、小吃｜約 30–40 分，之後可再逛',note:'午餐已吃過，邊走邊吃小吃；矢場とん 可留給別天',map:'Osu Shopping District Nagoya'},
+   {t:'14:30–15:30',tag:'shop',title:'Graphpaper Nagoya',meta:'中區大須 2-6-15｜12:00–19:00，週三公休｜1F 書店咖啡、2F 服飾與 FRAMA',must:true,map:'Graphpaper Nagoya'},
+   {t:'15:30',tag:'foot',title:'步行到榮（約 15–25 分）',meta:'沿途經久屋大通'},
+   {t:'16:00–18:00',tag:'shop',title:'榮購物',meta:'LACHIC、三越、PARCO、久屋大通公園 RAYARD｜UNIQLO（5F）＋GU（6F）在榮 Skyle，10:00–20:00',note:'退稅要帶護照；GU 只有榮這間找到',map:'LACHIC Nagoya'},
+   {t:'18:00',tag:'spot',title:'Oasis 21 水之宇宙船＋ナディアパーク燈飾',meta:'看夜景 30–60 分，免費｜ナディアパーク燈飾 16:30–21:00（2025–26 年度資料）',note:'燈飾今年細節出發前再查',map:'Oasis 21 Nagoya'},
+   {t:'19:30',tag:'food',title:'晚餐｜鳥開總本家 栄ラシック店',meta:'LACHIC 7F｜11:00–22:00（L.O. 21:00）｜假日可能要排，建議訂 19:30–20:00',must:true,map:'Torikai Sohonke Sakae Lachic'},
+   {t:'21:00',tag:'spot',title:'回名古屋站，看大名古屋燈飾',meta:'大名古屋ビルヂング 5F「White Forest Fantasy」11/11–12/25，11 月 17:00–23:00｜離名古屋站走路約 3 分',note:'08:30 已出門，累了可省略直接回飯店',map:'大名古屋ビルヂング スカイガーデン'}
   ]},
  {n:3,d:'11/23',w:'一',city:'名古屋 → 高山',title:'濃飛巴士進山・三町老街・飛驒牛',stay:'高山鄉村飯店',cost:'約 ¥10,000–12,000',icon:'bus',
-  note:['已訂：名古屋 09:45 → 高山 12:20，車次 13309，座位 01A／01B，¥7,200（2 人）','飯店 15:00 入住、10:00 前退房；11/21 12:00 前可免費取消','到飯店付溫泉稅 ¥300／人','今天只帶一晚小包'],
+  note:['早上先把大行李交給 VIA INN 櫃台寄出，指定 11/24 送達 Tokyu Stay（11/23 是假日，先確認可收件與配達日）','已訂：名古屋 09:45 → 高山 12:20，車次 13309，座位 01A／01B，¥7,200（2 人）','飯店 15:00 入住、10:00 前退房；11/21 12:00 前可免費取消','到飯店付溫泉稅 ¥300／人','今天只帶一晚小包（含 11/24 白天用品）'],
   eat:[['民藝食事 壽壽屋','朴葉味噌飛驒牛','https://www.gltjp.com/ja/directory/item/17812/'],['久田屋','朴葉味噌定食、田舍料理',MAP('久田屋 高山')]],
   items:[
+   {t:'09:00',tag:'hotel',title:'寄出大行李',meta:'VIA INN 櫃台辦宅急便 → 11/24 Tokyu Stay 收｜黑貓 ¥2,630–3,020／佐川 ¥2,180–2,440 一件｜趕 09:45 巴士，動作要快'},
    {t:'09:15',tag:'foot',title:'到名鐵巴士中心（名鐵百貨 3F）',meta:'提早 30 分到，巴士乘車處在 3F'},
    {t:'09:45',tag:'bus',title:'濃飛巴士 → 高山',meta:'2 小時 35 分｜中途休息一次｜行動電源隨身',must:true},
    {t:'12:20',tag:'bus',title:'抵達高山濃飛巴士中心',meta:'先到飯店寄行李（15:00 入住）',map:'高山鄉村飯店 Hanasatomachi'},
@@ -657,7 +686,7 @@ const SHOP = {
   {tab:'gift',brand:'金澤',name:'加賀棒茶（丸八製茶場）',where:'百番街 あんと',price:'¥700–1,500',desc:'焙煎茶梗的香氣，輕又好送，可放很久。',map:'丸八製茶場 金沢百番街'},
   {tab:'gift',brand:'金澤',name:'五郎島金時點心・金箔卡斯提拉',where:'百番街 あんと',price:'¥1,000–2,000',desc:'金澤在地番薯做的點心，和菓子類注意保存期限（問「日持ち」）。',map:'金沢百番街 あんと'},
   {tab:'gift',brand:'名古屋',name:'ういろう・手羽先煎餅・小倉吐司醬',where:'名站高島屋 B1、Esca',price:'¥500–1,500',desc:'Day 1 或 Day 2 先看，但重的留到金澤買以免寄行李超重。',map:'JR Nagoya Takashimaya'},
-  {tab:'gift',brand:'高山',name:'飛驒牛咖哩調理包・さるぼぼ',where:'三町老街',price:'¥500–1,500',desc:'Day 3 買好放進要寄的大行李…不對，大行李 11/22 已寄出，所以要放隨身包。買少量。',map:'Sanmachi Suji Takayama'}
+  {tab:'gift',brand:'高山',name:'飛驒牛咖哩調理包・さるぼぼ',where:'三町老街',price:'¥500–1,500',desc:'Day 3 買的要放隨身包（大行李 11/23 早上已寄出），買少量。',map:'Sanmachi Suji Takayama'}
  ]
 };
 
@@ -667,14 +696,15 @@ const GUIDES = {
   airport:`
    <div class="intro">11/21 IT206 12:25 抵達第 2 航廈。電車在第 1 航廈 Access Plaza，兩航廈間有免費接駁巴士，也可走連絡通道。從落地到飯店預留 2–2.5 小時。</div>
    <div class="gblock"><h4>${ico('train')} 搭哪班</h4><ul><li><b>μ-SKY</b>（全車指定席）到名鐵名古屋約 28–35 分，建議搭這班。</li><li>一般特急約 35–40 分、準急約 37 分以上，不用指定席但沒有行李區。</li><li>μ-SKY 每節車廂端部有大型行李置物區，名鐵官網寫「大型スーツケースなど荷物置場を完備」。</li></ul></div>
-   <div class="gblock"><h4>${ico('ticket')} 票價與買票</h4><ul><li>μ-ticket（指定席券）名鐵官方 ¥450；乘車券 ¥890 或 ¥980（來源不一致），單人約 ¥1,340–1,430，2 人約 ¥2,700–2,900。</li><li><b>建議事前在名鐵網路預約買 QR 乘車券</b>，下機直接過閘，不用在入境後排售票機。手機截圖另存。</li><li>出發前以名鐵購票頁為準。</li></ul></div>
+   <div class="gblock"><h4>${ico('ticket')} 票價與買票</h4><ul><li>乘車券 ¥890 ＋ μ-ticket（指定席券）¥450 ＝ 每人 ¥1,340，2 人約 ¥2,680。</li><li><b>乘車券</b>：先在 Klook／KKday 買 QR，2 人各買一張、各用自己手機，只能在有人的閘門刷。截圖另存。</li><li><b>μ-ticket</b>：用名鐵「無票服務」網站（reservation.meitetsu.co.jp）選班次買 ¥450，發車前 1 分鐘都能買，不用紙本。Klook 的 QR 不含這張。</li><li>出發前以名鐵購票頁為準。</li></ul></div>
+   <div class="gblock"><h4>${ico('note')} 建議時段</h4><ul><li>不必先綁班次：落地過海關後再買 μ-ticket，選 13:50–14:30 左右最近的一班（約每 20–30 分一班）。</li><li>11/21 是三連休起點，別拖太晚買；先到網站走一次流程，確認要不要註冊會員。</li><li>備案：名鐵窗口或觸控售票機可一次買齊（紙本要帶著上車）；最後可上車補，約 ¥500。</li></ul></div>
    <div class="gblock"><h4>${ico('note')} 時間怎麼抓</h4><ol class="steps"><li>入境與領行李 40–60 分</li><li>T2 → Access Plaza 10–15 分</li><li>候車＋乘車 35–45 分</li><li>名鐵名古屋 → JR 太閤通口 VIA INN 步行 5–10 分（到站坐 4 號車廂離改札口近）</li></ol><p class="tiny">約 14:30–15:00 到飯店，正好 15:00 可入住。</p></div>
    <div class="gblock warn"><h4>${ico('warn')} 備案</h4><ul><li>若改去榮：坐到金山換地鐵名城線。</li><li>機場巴士到榮約 ¥2,000，名站方向不建議。</li></ul></div>`,
   luggage:`
-   <div class="intro">高山只住一晚、房間 12 ㎡，所以大行李 11/22 從名古屋直接寄到金澤，11/23–24 只帶一晚小包。</div>
-   <div class="gblock"><h4>${ico('box')} 費用（140／160 尺寸，一件）</h4><ul><li>黑貓宅急便（ヤマト）¥2,630／¥3,020</li><li>佐川急便 ¥2,180／¥2,440</li><li>2 件大行李約 ¥4,400–6,000</li></ul></div>
-   <div class="gblock"><h4>${ico('note')} 流程</h4><ol class="steps"><li>11/21 入住時先問櫃台「荷物を金沢のホテルに送りたいです」，確認可代寄</li><li>量行李三邊合計，決定 140 或 160 尺寸</li><li>11/22 早上出門前填宅配單：收件人寫 Tokyu Stay Kanazawa ＋ 入住日 11/24 ＋ 訂房姓名</li><li>留下單據存根（有追蹤號碼）</li><li>11/24 到 Tokyu Stay 先問「荷物は届いていますか？」</li></ol></div>
-   <div class="gblock warn"><h4>${ico('warn')} 注意</h4><ul><li>鋰電池、行動電源不能寄宅配，要隨身。</li><li>名古屋→金澤通常隔日到，11/22 寄 11/23 或 11/24 到，剛好。</li><li>出發前確認 Tokyu Stay 可代收（多數日本飯店可以）。</li></ul></div>`,
+   <div class="intro">高山只住一晚、房間 12 ㎡，所以大行李 11/23 早上從名古屋直接寄到金澤，11/22 在名古屋買的東西可以一起放進去；11/23–24 只帶一晚小包。</div>
+   <div class="gblock"><h4>${ico('box')} 費用（140／160 尺寸，一件）</h4><ul><li>黑貓宅急便（ヤマト）¥2,630／¥3,020</li><li>佐川急便 ¥2,180／¥2,440</li><li>目前計畫寄 1 件（約 20 kg），以實際尺寸為準</li></ul></div>
+   <div class="gblock"><h4>${ico('note')} 流程</h4><ol class="steps"><li>11/21 入住時先問櫃台「荷物を金沢のホテルに送りたいです」，確認可代寄，並問 11/23（假日）能不能收件、11/24 能不能到</li><li>量行李三邊合計，決定 140 或 160 尺寸</li><li>11/23 早上（約 09:00 前，趕 09:45 巴士）填宅配單：收件人寫 Tokyu Stay Kanazawa ＋ 入住日 11/24 ＋ 訂房姓名</li><li>留下單據存根（有追蹤號碼）</li><li>11/24 到 Tokyu Stay 先問「荷物は届いていますか？」</li></ol></div>
+   <div class="gblock warn"><h4>${ico('warn')} 注意</h4><ul><li>鋰電池、行動電源不能寄宅配，要隨身。</li><li>名古屋→金澤通常隔日到，11/23 寄 11/24 到，只有一天緩衝；假日要先確認，並指定 11/24 送達。</li><li>出發前確認 Tokyu Stay 可代收（多數日本飯店可以）。</li></ul></div>`,
   bus:`
    <div class="intro">三段濃飛巴士都已訂好。預約制、對號座，上車給司機看預約號碼或 QR。</div>
    <div class="gblock"><h4>${ico('bus')} 班次</h4><ul><li><b>11/23</b> 名古屋（名鐵巴士中心 3F）09:45 → 高山濃飛巴士中心 12:20｜車次 13309，01A／01B，¥7,200（2 人）</li><li><b>11/24</b> 高山 4 號乘車處 07:50 → 白川鄉 08:40｜¥2,800／人</li><li><b>11/24</b> 白川鄉 11:25 → 金澤站西口 12:50｜¥2,800／人</li><li><b>11/28</b> 金澤站 → 小松機場 北鐵巴士約 40 分｜班次票價待核對</li></ul></div>
@@ -693,15 +723,15 @@ const GUIDES = {
   money:`
    <div class="intro">2 人合計。已付：機票 NT$32,552、住宿 NT$24,928、跨城巴士約 ¥18,400。</div>
    <div class="gblock"><h4>${ico('yen')} 每日粗估（餐飲＋市區交通＋門票，不含購物）</h4><ul><li>Day 1 ¥8,000–10,000（含機場電車）</li><li>Day 2 ¥8,000–10,000</li><li>Day 3 ¥10,000–12,000</li><li>Day 4 ¥10,000–13,000</li><li>Day 5 ¥9,000–12,000</li><li>Day 6 ¥10,000–14,000</li><li>Day 7 ¥10,000–14,000</li><li>Day 8 ¥3,000–5,000</li><li><b>合計約 ¥69,000–91,000</b></li></ul></div>
-   <div class="gblock"><h4>${ico('pushpin')} 還沒付</h4><ul><li>行李寄送 2 件約 ¥4,400–6,000</li><li>高山溫泉稅 ¥300／人（現場付）</li><li>機場停車 NT$1,600（待核對）</li><li>購物另計</li></ul></div>
+   <div class="gblock"><h4>${ico('pushpin')} 還沒付</h4><ul><li>行李寄送 1 件約 ¥2,180–3,020</li><li>高山溫泉稅 ¥300／人（現場付）</li><li>機場停車 NT$1,600（待核對）</li><li>購物另計</li></ul></div>
    <div class="gblock"><h4>${ico('card')} 付款</h4><ul><li>市場、老街小店、巴士多只收現金，日圓建議帶 ¥60,000 以上，其餘刷卡。</li><li>名鐵、金澤周遊巴士可用 Suica／ICOCA 等交通 IC 卡，手機 Suica 最方便。</li></ul></div>`
  }
 };
 
 const HOTELS = [
- {name:'VIA INN 名古屋站太閤通口',ja:'ヴィアイン名古屋駅太閤通口',dates:'11/21（六）– 11/23（一）｜2 晚',price:'NT$10,224（含稅）',in:'15:00',out:'待補',addr:'JR 名古屋站太閤通口步行約 5 分',map:'VIA INN Nagoya Station Taikodori',notes:['11/21 早到先寄放行李','11/22 請櫃台代寄大行李到金澤','付款狀態、房型、取消條件待補'],color:'soft-blue'},
+ {name:'VIA INN 名古屋站太閤通口',ja:'ヴィアイン名古屋駅太閤通口',dates:'11/21（六）– 11/23（一）｜2 晚',price:'NT$10,224（含稅）',in:'15:00',out:'待補',addr:'JR 名古屋站太閤通口步行約 5 分',map:'VIA INN Nagoya Station Taikodori',notes:['11/21 早到先寄放行李','11/23 早上請櫃台代寄大行李到金澤（假日先確認可收件）','付款狀態、房型、取消條件待補'],color:'soft-blue'},
  {name:'高山鄉村飯店',ja:'高山カントリーホテル',dates:'11/23（一）– 11/24（二）｜1 晚',price:'NT$1,641（已線上預付）＋溫泉稅 ¥300／人現場付',in:'15:00–03:00',out:'10:00 前',addr:'岐阜縣高山市花里町 6-38-38｜+81-577-35-3900',map:'高山カントリーホテル',notes:['禁菸小型雙人床房 12 ㎡，1 張小型雙人床，無餐','11/21 12:00 前免費取消；11/22 12:00 前取消收 NT$328；11/23 12:00 前收 NT$1,313；之後不可退','確認編號與 PIN 在 Trip.com 憑證 PDF，不放這裡'],color:'soft-yellow'},
- {name:'Tokyu Stay Kanazawa',ja:'東急ステイ金沢',dates:'11/24（二）– 11/28（六）｜4 晚',price:'NT$13,063（含稅）',in:'15:00',out:'約 08:00 出發（退房時間待補）',addr:'金澤市香林坊 2-1-1｜最近巴士站「南町・尾山神社」',map:'Tokyu Stay Kanazawa',notes:['11/24 入住先確認 11/22 寄來的行李','房內有洗衣機，4 晚可洗衣','付款狀態、房型、取消條件待補'],color:'soft-coral'}
+ {name:'Tokyu Stay Kanazawa',ja:'東急ステイ金沢',dates:'11/24（二）– 11/28（六）｜4 晚',price:'NT$13,063（含稅）',in:'15:00',out:'約 08:00 出發（退房時間待補）',addr:'石川縣金澤市南町 4-50｜最近巴士站「南町・尾山神社」步行約 1 分',map:'Tokyu Stay Kanazawa',notes:['11/24 入住先確認 11/23 寄來的行李','房內有洗衣機，4 晚可洗衣','付款狀態、房型、取消條件待補'],color:'soft-coral'}
 ];
 
 const TODO = {
@@ -709,7 +739,7 @@ const TODO = {
   ['補去程另一席座位、回程座位'],
   ['補名古屋與金澤飯店付款狀態、房型與取消條件'],
   ['補三段巴士預約號碼到 Notion 預訂資料'],
-  ['買好 μ-SKY QR 乘車券並核對票價','名鐵網路預約'],
+  ['買好乘車券 QR（Klook／KKday，2 人各一張）','μ-ticket 落地後用名鐵無票服務買（¥890＋¥450）'],
   ['核對 11/28 金澤→小松機場巴士班次與票價、小松機場報到與退稅櫃位'],
   ['確認大漁停車是否需預約與接駁方式'],
   ['確認 BEAMS 金澤位置、鳥開總本家是否可訂位'],
@@ -729,7 +759,7 @@ const TODO = {
  'pack-carry':[
   ['護照（退稅、入住都要實體）'],
   ['手機、行動電源、充電線'],
-  ['巴士預約號碼截圖、μ-SKY QR 票'],
+  ['巴士預約號碼截圖、乘車券 QR（2 人各一張）、μ-ticket 畫面'],
   ['日圓現金、信用卡、交通 IC 卡'],
   ['雨具（折傘）、保暖外套'],
   ['退稅商品專用袋（11/28）']
@@ -979,6 +1009,147 @@ pull();
 document.addEventListener('visibilitychange',()=>{ if(document.visibilityState==='visible') pull(); });
 window.addEventListener('online',flush);
 setInterval(()=>{ if(document.visibilityState==='visible' && navigator.onLine) (queue().length?flush():pull()); },90000);
+
+/* ---- BUDGET（記帳） ---- */
+const EXP_CATS=['機票','住宿','交通','行李','餐飲','購物','門票','其他'];
+const EXP_ST={paid:'已付',booked:'已訂',est:'預估'};
+const EXP_SEED=[
+ {date:'2026-11-21',cat:'機票',title:'IT206 桃園→名古屋（2人）',amount:13958,cur:'TWD',status:'booked',note:'台灣虎航，每人 NT$6,979'},
+ {date:'2026-11-28',cat:'機票',title:'BR157 小松→桃園（2人）',amount:18594,cur:'TWD',status:'booked',note:'長榮航空，每人 NT$9,297'},
+ {date:'2026-11-21',cat:'住宿',title:'VIA INN 名古屋站（2晚）',amount:10224,cur:'TWD',status:'booked',note:'付款狀態待補'},
+ {date:'2026-11-23',cat:'住宿',title:'高山鄉村飯店（1晚）',amount:1641,cur:'TWD',status:'paid',note:'已線上預付，含稅與服務費'},
+ {date:'2026-11-24',cat:'住宿',title:'Tokyu Stay Kanazawa（4晚）',amount:13063,cur:'TWD',status:'booked',note:'付款狀態待補'},
+ {date:'2026-11-23',cat:'交通',title:'濃飛巴士 名古屋→高山（2人）',amount:7200,cur:'JPY',status:'booked',note:'預約號碼 188394099'},
+ {date:'2026-11-24',cat:'交通',title:'濃飛巴士 高山→白川鄉（2人）',amount:5600,cur:'JPY',status:'booked',note:'每人 ¥2,800'},
+ {date:'2026-11-24',cat:'交通',title:'濃飛巴士 白川鄉→金澤（2人）',amount:5600,cur:'JPY',status:'booked',note:'每人 ¥2,800'},
+ {date:'2026-11-21',cat:'交通',title:'名鐵 μ-SKY 機場→名古屋（2人）',amount:2680,cur:'JPY',status:'est',note:'乘車券 ¥890＋μ-ticket ¥450，每人 ¥1,340'},
+ {date:'2026-11-21',cat:'交通',title:'桃園機場停車 大漁停車',amount:1600,cur:'TWD',status:'est',note:'8 天，待核對是否需預約'},
+ {date:'2026-11-23',cat:'行李',title:'行李宅配 名古屋→金澤',amount:2180,cur:'JPY',status:'est',note:'佐川 ¥2,180 起／黑貓 ¥2,630 起（10/22 查）'},
+ {date:'2026-11-23',cat:'住宿',title:'高山溫泉稅',amount:300,cur:'JPY',status:'est',note:'Notion 寫 ¥300，若是每人請改成 ¥600'},
+ {date:'2026-11-22',cat:'門票',title:'名古屋城門票（2人）',amount:2000,cur:'JPY',status:'est',note:'¥1,000／人（2026/10/1 起）'}
+];
+const EXP_KEY='expItems.v1', EQ_KEY='expQueue', RATE_KEY='jpyRate';
+const expSeed=()=>EXP_SEED.map((x,i)=>({id:'e'+i,payer:'',...x}));
+let expItems=store.get(EXP_KEY,null)||expSeed();
+let expCat=store.get('expCat','全部'), expEdit=null, expSettings=false, expState={status:'local',msg:'',at:store.get('expAt','')}, expFlushing=false;
+const saveExp=()=>store.set(EXP_KEY,expItems);
+const eq=()=>store.get(EQ_KEY,[]), setEq=q=>store.set(EQ_KEY,q);
+const rate=()=>{const r=parseFloat(store.get(RATE_KEY,0.207));return r>0?r:0.207;};
+const twd=it=>(Number(it.amount)||0)*(it.cur==='JPY'?rate():1);
+const money=(n,c)=>(c==='JPY'?'¥':'NT$')+Math.round(n).toLocaleString('en-US');
+async function ePost(ops){ const r=await fetch(syncUrl(),{method:'POST',redirect:'follow',headers:{'Content-Type':'text/plain;charset=utf-8'},body:JSON.stringify({ops})}); const d=await r.json(); if(!d.ok) throw new Error(d.error||'server'); if(d.sheet!=='expenses') throw new Error('Apps Script 還是舊版，請貼上新的 Code.gs 並重新部署'); return d; }
+async function eGet(){ const u=syncUrl(); const r=await fetch(u+(u.includes('?')?'&':'?')+'sheet=expenses',{redirect:'follow'}); const d=await r.json(); if(!d.ok) throw new Error(d.error||'server'); if(d.sheet!=='expenses') throw new Error('Apps Script 還是舊版，請貼上新的 Code.gs 並重新部署'); return d; }
+function eApply(d){ expItems=d.items.map(it=>({...it,amount:Number(it.amount)||0})); saveExp(); expState={status:'ok',msg:'',at:new Date().toISOString()}; store.set('expAt',expState.at); }
+async function eFlush(){
+  if(!syncUrl()||expFlushing) return; const q=eq(); if(!q.length) return;
+  expFlushing=true; expState.status='syncing'; renderBudget(false);
+  try{ const d=await ePost(q); setEq([]); eApply(d); }catch(e){ expState={...expState,status:'offline',msg:String(e.message||e)}; }
+  expFlushing=false; renderBudget(false);
+}
+async function ePull(first=false){
+  if(!syncUrl()){ expState.status='local'; renderBudget(false); return; }
+  if(eq().length) return eFlush();
+  expState.status='syncing'; renderBudget(false);
+  try{
+    const d=await eGet();
+    if(d.items.length===0 && expItems.length>0){
+      expState={status:'ok',msg:'',at:new Date().toISOString()};
+      if(first && confirm('記帳工作表目前是空的。要把這台裝置的記帳資料上傳上去嗎？')){ return eSeed(); }
+    } else eApply(d);
+  }catch(e){ expState={...expState,status:'offline',msg:String(e.message||e)}; }
+  renderBudget(false);
+}
+async function eSeed(){
+  expState.status='syncing'; renderBudget(false);
+  try{ const d=await ePost([{action:'e_seed',items:expItems}]); eApply(d); }catch(e){ expState={...expState,status:'offline',msg:String(e.message||e)}; alert('上傳失敗：'+e.message); }
+  renderBudget(false);
+}
+function ePush(op){ if(!syncUrl()) return; setEq([...eq(),op]); eFlush(); }
+function expForm(it){
+  const v=k=>esc(it&&it[k]!=null?it[k]:'');
+  const payers=[...new Set(expItems.map(x=>x.payer).filter(Boolean))];
+  return `<form class="pick edit" data-id="${it?it.id:'new'}">
+    <label class="f"><span>項目 *</span><input name="title" value="${v('title')}" placeholder="例：名古屋城午餐" required></label>
+    <div class="two">
+      <label class="f"><span>金額 *</span><input name="amount" type="number" min="0" step="any" inputmode="decimal" value="${v('amount')}" required></label>
+      <label class="f"><span>幣別</span><select name="cur"><option value="JPY" ${it&&it.cur==='JPY'?'selected':''}>日圓 ¥</option><option value="TWD" ${!it||it.cur==='TWD'?'selected':''}>台幣 NT$</option></select></label>
+    </div>
+    <div class="two">
+      <label class="f"><span>類別</span><select name="cat">${EXP_CATS.map(c=>`<option ${(it?it.cat:'餐飲')===c?'selected':''}>${c}</option>`).join('')}</select></label>
+      <label class="f"><span>狀態</span><select name="status">${Object.entries(EXP_ST).map(([k,l])=>`<option value="${k}" ${(it?it.status:'paid')===k?'selected':''}>${l}</option>`).join('')}</select></label>
+    </div>
+    <div class="two">
+      <label class="f"><span>日期</span><input name="date" type="date" value="${it?v('date'):new Date(Date.now()+8*36e5).toISOString().slice(0,10)}"></label>
+      <label class="f"><span>誰付的</span><input name="payer" list="payers" value="${v('payer')}" placeholder="例：我／同行者"><datalist id="payers">${payers.map(p=>`<option value="${esc(p)}">`).join('')}</datalist></label>
+    </div>
+    <label class="f"><span>備注</span><textarea name="note" rows="2">${v('note')}</textarea></label>
+    <div class="acts"><button class="btn sm g" type="submit">${ico('save')} 儲存</button><button class="btn sm" type="button" data-act="cancel">取消</button>${it?`<button class="btn sm p" type="button" data-act="del">${ico('trash')} 刪除</button>`:''}</div>
+  </form>`;
+}
+function renderBudget(anim=true){
+  const box=$('#budgetbox'); if(!box) return;
+  const sum=st=>expItems.filter(i=>!st||i.status===st).reduce((a,i)=>a+twd(i),0);
+  const byCat=EXP_CATS.map(c=>[c,expItems.filter(i=>i.cat===c).reduce((a,i)=>a+twd(i),0)]).filter(x=>x[1]>0);
+  const payers=[...new Set(expItems.map(x=>x.payer).filter(Boolean))];
+  const cats=['全部',...EXP_CATS.filter(c=>expItems.some(i=>i.cat===c))];
+  if(!cats.includes(expCat)) expCat=cats[0];
+  const list=expItems.filter(i=>expCat==='全部'||i.cat===expCat).slice().sort((a,b)=>String(a.date).localeCompare(String(b.date)));
+  const q=eq().length, s=expState.status;
+  let dot='',txt='';
+  if(s==='local') txt='未設定同步，記帳只存在這台裝置。要和同行者共用，請到「購物清單」的 ⚙️ 貼上同一個 Apps Script 網址。';
+  else if(s==='syncing') txt='同步中…';
+  else if(s==='ok'){ dot='ok'; txt='已與試算表同步'+(expState.at?'・'+fmtTime(expState.at):''); }
+  else { dot='no'; txt=`離線或連線失敗${q?`，${q} 筆變更待送`:''}${expState.msg?'：'+esc(expState.msg):''}`; }
+  box.innerHTML=`<div class="card ${anim&&!rm()?'bounce':''}">
+    <div class="audio-status"><span class="dot ${dot}"></span><span style="flex:1">${txt}</span>${syncUrl()?`<button class="btn sm" type="button" data-act="epull">${ico('refresh')} 重新整理</button>`:''}<button class="iconbtn" type="button" data-act="esettings" aria-label="匯率設定">${ico('gear')}</button></div>
+    ${expSettings?`<form class="pick edit" id="rateform"><label class="f"><span>匯率：1 日圓 ＝ 幾元台幣（用來換算總額）</span><input name="rate" type="number" step="0.0001" min="0" value="${rate()}"></label><div class="acts"><button class="btn sm g" type="submit">${ico('save')} 儲存</button><button class="btn sm" type="button" data-act="cancel">關閉</button></div><p class="tiny" style="margin-top:6px">匯率只存在這台裝置，預設 0.207（約 ¥300＝NT$62），出發前請依實際匯率調整。</p></form>`:''}
+    <div class="bsum">
+      <div class="tot"><small>總計（約，換算台幣）</small><b>${money(sum(),'TWD')}</b></div>
+      <div><small>已付</small><b>${money(sum('paid'),'TWD')}</b></div>
+      <div><small>已訂</small><b>${money(sum('booked'),'TWD')}</b></div>
+      <div><small>預估</small><b>${money(sum('est'),'TWD')}</b></div>
+    </div>
+    <div class="catbar">${byCat.map(([c,n])=>`<span>${c} ${money(n,'TWD')}</span>`).join('')}${payers.map(p=>`<span>${ico('coin')} ${esc(p)} 付 ${money(expItems.filter(i=>i.payer===p).reduce((a,i)=>a+twd(i),0),'TWD')}</span>`).join('')}</div>
+    <div class="tabs">${cats.map(c=>`<button class="tab ${c===expCat?'active':''}" type="button" data-cat="${c}">${c}</button>`).join('')}</div>
+    <div class="row" style="margin-bottom:10px">
+      <button class="btn sm y" type="button" data-act="eadd">${ico('plus')} 記一筆</button>
+      <button class="btn sm" type="button" data-act="eexport">${ico('down')} 匯出 CSV</button>
+      <button class="btn sm" type="button" data-act="ereset">${ico('undo')} 還原預設</button>
+    </div>
+    ${expEdit==='new'?expForm(null):''}
+    ${list.length?'':'<p class="muted">這個類別還沒有項目。</p>'}
+    ${list.map(it=>expEdit===it.id?expForm(it):`<article class="pick" data-id="${it.id}"><div class="exp"><div><h4>${esc(it.title)}</h4><div class="meta">${esc(it.date||'')} ・ ${esc(it.cat)}${it.payer?' ・ '+esc(it.payer)+' 付':''}</div>${it.note?`<p class="desc">${esc(it.note)}</p>`:''}</div><div><div class="amt">${money(it.amount,it.cur)}${it.cur==='JPY'?`<small>約 ${money(twd(it),'TWD')}</small>`:''}</div><div style="text-align:right;margin-top:4px"><span class="badge ${it.status}">${EXP_ST[it.status]||it.status}</span></div></div></div><div class="acts"><button class="iconbtn" type="button" data-act="eedit" aria-label="編輯">${ico('pencil')}</button></div></article>`).join('')}
+  </div>`;
+  box.querySelectorAll('[data-cat]').forEach(b=>b.onclick=()=>{expCat=b.dataset.cat;store.set('expCat',expCat);expEdit=null;renderBudget(false);});
+  box.querySelector('[data-act=eadd]').onclick=()=>{expEdit='new';renderBudget(false);box.querySelector('form.edit input[name=title]')?.focus();};
+  box.querySelectorAll('[data-act=eedit]').forEach(b=>b.onclick=()=>{expEdit=b.closest('.pick').dataset.id;renderBudget(false);});
+  box.querySelectorAll('[data-act=cancel]').forEach(b=>b.onclick=()=>{ if(b.closest('#rateform')) expSettings=false; else expEdit=null; renderBudget(false);});
+  box.querySelector('[data-act=esettings]').onclick=()=>{expSettings=!expSettings;renderBudget(false);};
+  const pb=box.querySelector('[data-act=epull]'); if(pb) pb.onclick=()=>ePull();
+  const rf=box.querySelector('#rateform'); if(rf) rf.onsubmit=e=>{e.preventDefault();const r=parseFloat(new FormData(rf).get('rate'));if(r>0){store.set(RATE_KEY,r);expSettings=false;renderBudget(false);}};
+  box.querySelectorAll('[data-act=del]').forEach(b=>b.onclick=()=>{const id=b.closest('form').dataset.id; if(confirm('刪除這筆？')){expItems=expItems.filter(i=>i.id!==id);saveExp();expEdit=null;ePush({action:'e_delete',id});renderBudget(false);}});
+  box.querySelectorAll('form.edit:not(#rateform)').forEach(f=>f.onsubmit=e=>{
+    e.preventDefault(); const fd=new FormData(f);
+    const obj={title:fd.get('title').trim(),amount:Number(fd.get('amount'))||0,cur:fd.get('cur'),cat:fd.get('cat'),status:fd.get('status'),date:fd.get('date')||'',payer:fd.get('payer').trim(),note:fd.get('note').trim()};
+    if(!obj.title) return;
+    let item;
+    if(f.dataset.id==='new'){ item={id:'ue'+Date.now().toString(36),...obj}; expItems.push(item); }
+    else { const i=expItems.findIndex(x=>x.id===f.dataset.id); expItems[i]={...expItems[i],...obj}; item=expItems[i]; }
+    saveExp(); expEdit=null; ePush({action:'e_upsert',item}); renderBudget(false);
+  });
+  box.querySelector('[data-act=eexport]').onclick=()=>{
+    const rows=[['日期','類別','項目','金額','幣別','台幣換算','誰付的','狀態','備注'],...expItems.map(i=>[i.date,i.cat,i.title,i.amount,i.cur,Math.round(twd(i)),i.payer,EXP_ST[i.status]||i.status,i.note])];
+    const csv='﻿'+rows.map(r=>r.map(c=>`"${String(c??'').replace(/"/g,'""')}"`).join(',')).join('\n');
+    const a=document.createElement('a'); a.href=URL.createObjectURL(new Blob([csv],{type:'text/csv'})); a.download='expenses.csv'; a.click(); setTimeout(()=>URL.revokeObjectURL(a.href),1000);
+  };
+  box.querySelector('[data-act=ereset]').onclick=()=>{ if(confirm('還原成預設的已確定項目？你新增或修改的記帳會消失'+(syncUrl()?'（只影響這台裝置，試算表不變）':'')+'。')){ expItems=expSeed(); saveExp(); expEdit=null; renderBudget(false);} };
+}
+renderBudget(false);
+ePull(true);
+document.addEventListener('visibilitychange',()=>{ if(document.visibilityState==='visible') (eq().length?eFlush():ePull()); });
+window.addEventListener('online',eFlush);
+setInterval(()=>{ if(document.visibilityState==='visible' && navigator.onLine) (eq().length?eFlush():ePull()); },90000);
+
 
 /* guides */
 makeTabs($('#guidetabs'),$('#guidepanels'),GUIDES.tabs,id=>GUIDES.html[id],'guideTab');

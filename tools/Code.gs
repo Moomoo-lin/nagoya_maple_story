@@ -4,8 +4,12 @@
  *
  * 工作表「shopping」欄位：
  * id | tab | brand | name | where | price | desc | map | star | bought | updatedAt
+ * 工作表「expenses」（記帳）欄位：
+ * id | date | cat | title | amount | cur | payer | status | note | updatedAt
  */
 const SHEET_NAME = 'shopping';
+const EXP_NAME = 'expenses';
+const EXP_HEADERS = ['id','date','cat','title','amount','cur','payer','status','note','updatedAt'];
 const HEADERS = ['id','tab','brand','name','where','price','desc','map','star','bought','updatedAt'];
 
 function sheet_() {
@@ -71,12 +75,52 @@ function remove_(id) {
   if (row > 0) sh.deleteRow(row);
 }
 
+
+/* ---------- 記帳（工作表 expenses） ---------- */
+function expSheet_() {
+  const ss = SpreadsheetApp.getActiveSpreadsheet();
+  let sh = ss.getSheetByName(EXP_NAME);
+  if (!sh) sh = ss.insertSheet(EXP_NAME);
+  if (sh.getLastRow() === 0) { sh.appendRow(EXP_HEADERS); sh.setFrozenRows(1); }
+  return sh;
+}
+function expReadAll_() {
+  const rows = expSheet_().getDataRange().getValues();
+  const out = [];
+  for (let i = 1; i < rows.length; i++) {
+    const r = rows[i];
+    if (!r[0]) continue;
+    let d = r[1];
+    if (d instanceof Date) d = Utilities.formatDate(d, 'Asia/Taipei', 'yyyy-MM-dd');
+    out.push({ id: String(r[0]), date: String(d||''), cat: String(r[2]||''), title: String(r[3]||''),
+      amount: Number(r[4])||0, cur: String(r[5]||'TWD'), payer: String(r[6]||''), status: String(r[7]||'est'),
+      note: String(r[8]||'') });
+  }
+  return out;
+}
+function expUpsert_(it) {
+  const sh = expSheet_();
+  const row = findRow_(sh, it.id);
+  // 日期存成純文字，避免被試算表轉成日期格式
+  const vals = [it.id, "'" + (it.date||''), it.cat||'', it.title||'', Number(it.amount)||0, it.cur||'TWD',
+                it.payer||'', it.status||'est', it.note||'', new Date()];
+  if (row > 0) sh.getRange(row, 1, 1, EXP_HEADERS.length).setValues([vals]);
+  else sh.appendRow(vals);
+}
+function expRemove_(id) {
+  const sh = expSheet_();
+  const row = findRow_(sh, id);
+  if (row > 0) sh.deleteRow(row);
+}
+
 function json_(obj) {
   return ContentService.createTextOutput(JSON.stringify(obj)).setMimeType(ContentService.MimeType.JSON);
 }
 
 function doGet(e) {
   try {
+    if (e && e.parameter && e.parameter.sheet === 'expenses')
+      return json_({ ok: true, sheet: 'expenses', items: expReadAll_(), serverTime: new Date().toISOString() });
     return json_({ ok: true, items: readAll_(), serverTime: new Date().toISOString() });
   } catch (err) { return json_({ ok: false, error: String(err) }); }
 }
@@ -87,8 +131,15 @@ function doPost(e) {
   try {
     const body = JSON.parse(e.postData.contents || '{}');
     const ops = Array.isArray(body.ops) ? body.ops : [body];
+    let expTouched = false;
     ops.forEach(op => {
-      if (op.action === 'upsert' && op.item && op.item.id) upsert_(op.item);
+      if (op.action === 'e_upsert' && op.item && op.item.id) { expUpsert_(op.item); expTouched = true; }
+      else if (op.action === 'e_delete' && op.id) { expRemove_(op.id); expTouched = true; }
+      else if (op.action === 'e_seed' && Array.isArray(op.items)) {
+        expTouched = true;
+        if (expReadAll_().length === 0) op.items.forEach(expUpsert_);
+      }
+      else if (op.action === 'upsert' && op.item && op.item.id) upsert_(op.item);
       else if (op.action === 'delete' && op.id) remove_(op.id);
       else if (op.action === 'check' && op.id) upsert_({ id: op.id, bought: !!op.value });
       else if (op.action === 'seed' && Array.isArray(op.items)) {
@@ -96,6 +147,7 @@ function doPost(e) {
         if (readAll_().length === 0) op.items.forEach(upsert_);
       }
     });
+    if (expTouched) return json_({ ok: true, sheet: 'expenses', items: expReadAll_(), serverTime: new Date().toISOString() });
     return json_({ ok: true, items: readAll_(), serverTime: new Date().toISOString() });
   } catch (err) {
     return json_({ ok: false, error: String(err) });
